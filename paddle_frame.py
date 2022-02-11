@@ -8,7 +8,7 @@ import numpy as np
 
 
 class BasicModel(fluid.dygraph.Layer):
-    def __init__(self, num_classes=59):
+    def __init__(self, num_classes=4):
         super(BasicModel, self).__init__()
         self.pool = Pool2D(pool_size=2, pool_stride=2, pool_type='max')  # 池化层尺寸、步长及池化函数
         self.conv = Conv2D(num_channels=3, num_filters=1, filter_size=1, padding=0, act='relu')
@@ -31,7 +31,7 @@ def main():
     place = paddle.fluid.CPUPlace()
     # place = paddle.fluid.CUDAPlace(0)     # GPU
     with fluid.dygraph.guard(place):
-        model = BasicModel(num_classes=59)
+        model = BasicModel(num_classes=4)
         model.eval()
         input_data = np.random.rand(10, 3, 8, 8).astype(np.float32)       # (batch_size, channels, length, width)
         print("input data shape:", input_data.shape)
